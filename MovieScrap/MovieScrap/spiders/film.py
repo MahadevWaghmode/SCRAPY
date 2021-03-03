@@ -21,6 +21,7 @@ class FilmSpider(scrapy.Spider):
     def parse2(self, response):
         #print(response)       
         if response.css('a.fileName'):
+            img = response.css('.fileName img::attr(src)').getall()
             names = response.css('a.fileName::attr(title)').getall()
             links = response.css('a.fileName::attr(href)').getall()
             source = response.css('.fileName span::text').getall()
@@ -28,9 +29,11 @@ class FilmSpider(scrapy.Spider):
                 #print(names[i])
                 #print(links[i])
                 yield{
+
                     'Name' : names[i],
                     'Link' : links[i],
-                    'Source' : source[i]
+                    'Source' : source[i],
+                    'Image': img[i],
                 }
 
 
@@ -55,6 +58,7 @@ class FilmSpider(scrapy.Spider):
     def parse3(self, response):
         #print("\t",response)       
         if response.css('a.fileName'):
+            img = response.css('.fileName img::attr(src)').getall()
             names = response.css('a.fileName::attr(title)').getall()
             links = response.css('a.fileName::attr(href)').getall()
             source = response.css('.fileName span::text').getall()
@@ -64,7 +68,8 @@ class FilmSpider(scrapy.Spider):
                 yield{
                     'Name' : names[i],
                     'Link' : links[i],
-                    'Source' : source[i]
+                    'Source' : source[i],
+                    'Image': img[i],
                 }
 
             if response.css('a[rel="next"]'):
@@ -84,6 +89,7 @@ class FilmSpider(scrapy.Spider):
 
     def parse4(self, response):
         if response.css('a.fileName'):
+            img = response.css('.fileName img::attr(src)').getall()
             names = response.css('a.fileName::attr(title)').getall()
             links = response.css('a.fileName::attr(href)').getall()
             source = response.css('.fileName span::text').getall()
@@ -93,7 +99,8 @@ class FilmSpider(scrapy.Spider):
                 yield{
                     'Name' : names[i],
                     'Link' : links[i],
-                    'Source' : source[i]
+                    'Source' : source[i],
+                    'Image': img[i],
                 }
 
 
